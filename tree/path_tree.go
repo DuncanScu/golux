@@ -12,7 +12,7 @@ type PathTree struct {
 }
 
 func NewPathTree() *PathTree {
-	root := &RouteNode{}
+	root := NewRouteNode("")
 	return &PathTree{
 		Root: root,
 	}
@@ -35,7 +35,7 @@ func (t *PathTree) Search(path string) (*RouteNode, error) {
 	partSegments := strings.Split(path, "/")
 	for _, segment := range partSegments {
 		if _, exist := current.Children[segment]; !exist {
-			return nil, errors.New("The handler for that request does not exist")
+			return nil, errors.New("the handler for that request does not exist")
 		}
 		current = current.Children[segment]
 	}

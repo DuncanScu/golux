@@ -21,7 +21,7 @@ func NewRouteNode(path string) *RouteNode {
 	return &RouteNode{
 		PathSegment:     path,
 		Children:        map[string]*RouteNode{},
-		RequestHandlers: make(map[string]common.HandlerFunc),
+		RequestHandlers: map[string]common.HandlerFunc{},
 	}
 }
 

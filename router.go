@@ -1,6 +1,8 @@
 package golux
 
 import (
+	"net/http"
+
 	"github.com/DuncanScu/golux/common"
 	"github.com/DuncanScu/golux/tree"
 	"github.com/aws/aws-lambda-go/events"
@@ -29,12 +31,12 @@ func (r *Router) Handle(method string, path string, fn common.HandlerFunc) {
 func (r *Router) HandleRequest(req events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
 	routeNode, err := r.PathTree.Search(req.Path)
 	if err != nil {
-		panic(err)
+		return events.APIGatewayProxyResponse{StatusCode: http.StatusBadGateway}, err
 	}
 
 	handlerFn, err := routeNode.GetHandler(req.HTTPMethod)
 	if err != nil {
-		panic(err)
+		return events.APIGatewayProxyResponse{StatusCode: http.StatusBadGateway}, err
 	}
 
 	return handlerFn(req)
