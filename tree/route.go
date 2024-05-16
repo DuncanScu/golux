@@ -22,7 +22,7 @@ func NewRouteNode(path string) *RouteNode {
 
 func (n *RouteNode) AddHandler(method string, fn common.HandlerFunc) error {
 	if _, exists := n.RequestHandlers[method]; exists {
-		return errors.New("A handler for the path already exists")
+		return errors.New(HandlerExistsError)
 	}
 	n.RequestHandlers[method] = fn
 	return nil
@@ -31,7 +31,7 @@ func (n *RouteNode) AddHandler(method string, fn common.HandlerFunc) error {
 func (n *RouteNode) GetHandler(method string) (common.HandlerFunc, error) {
 	handler, exists := n.RequestHandlers[method]
 	if !exists {
-		return nil, errors.New("A handler for that path does not exist")
+		return nil, errors.New(HandlerDoesntExistError)
 	}
 	return handler, nil
 }
