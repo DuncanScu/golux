@@ -6,6 +6,11 @@ import (
 	"github.com/DuncanScu/golux/common"
 )
 
+const (
+	HandlerExistsError      = "A handler for the path already exists"
+	HandlerDoesntExistError = "A handler for that path does not exist"
+)
+
 type RouteNode struct {
 	PathSegment     string
 	Children        map[string]*RouteNode
